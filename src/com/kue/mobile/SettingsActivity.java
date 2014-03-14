@@ -50,10 +50,6 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		mForgottenList.add("Travel Mug");
 		mForgottenList.add("Bus Pass");
 		mForgottenList.add("Kindle");
-		
-		//togglebutton onclicklistener
-		//ToggleButton tgbutton = (ToggleButton)findViewById(R.id.switch_toggle);
-		//tgbutton.setOnCheckedChangeListener((OnCheckedChangeListener) this);
 	}
 
 	@Override
@@ -84,33 +80,6 @@ public class SettingsActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		Log.i("ViewID", ((Integer) v.getId()).toString());
-		switch(v.getId()){
-		case R.id.switch_toggle: 
-			Log.i("Michelle", "Toggle Clicked");
-			//onToggleClicked(v);
-			//Toast pieceToast= Toast.makeText(getApplicationContext(), "Image Button One Clicked", Toast.LENGTH_SHORT);
-			//pieceToast.show();
-			break;
-		case R.id.edit_button:
-			Log.i("Michelle", "Edit Clicked");
-			onEditButton(v);
-			break;
-		
-		}
-		
-
-	}
-
-	//		@Override
-	//		public boolean onCreateOptionsMenu(Menu menu) {
-	//		    // Inflate the menu items for use in the action bar
-	//		    MenuInflater inflater = getMenuInflater();
-	//		    inflater.inflate(R.menu.main_activity_actions, menu);
-	//		    return super.onCreateOptionsMenu(menu);
-	//		}
-
-	private void onEditButton(View v){
 		Button editButton = (Button) v;
 		Log.i("Michelle", v.toString());
 		final int position = (Integer) editButton.getTag();
