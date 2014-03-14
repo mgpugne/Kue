@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Kue</string>
+    <string name="action_settings">Settings</string>
+    <string name="my_belongings">My Items</string>
+    <string name="first_item">Umbrella</string>
+    <string name="action_add_item">Add Item</string>
+
+</resources>

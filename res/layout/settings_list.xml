@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="0dp">
+    
+    <TextView android:id="@+id/personal_belongings_list"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:textSize="16sp">
+    </TextView>
+    
+    <Button android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit"
+        android:layout_gravity="center"
+        android:textColor="#05c5cf"
+        android:background="@android:color/transparent">
+    </Button>
+    
+    <Switch android:id="@+id/switch_toggle"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textOn="On"
+	    android:textOff="Off"
+	    android:layout_gravity="right|center_vertical"/>
+	     
+</FrameLayout> 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="8dp">
+    
+    <TextView android:id="@+id/missing_items"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:textSize="16sp">
+    </TextView>
+    
+    <ImageView android:id="@+id/x_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:src="@drawable/badge_circle_check"
+        android:layout_gravity="right|center_vertical"
+        android:background="@android:color/transparent">
+    </ImageView>
+    
+    <!-- <Button android:id="@+id/x_button"
+        android:layout_height="wrap_content"
+        android:text="X"
+        android:layout_width="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:background="@android:color/transparent">
+    </Button> -->
+</FrameLayout>
