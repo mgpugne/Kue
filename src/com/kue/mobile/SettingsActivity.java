@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -57,6 +58,20 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.settings, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_add_item:
+			//TO DO: Need to find new tag, user uses refresh button
+			//If found new tag, show first tag id that is found (or show a list)
+			//Then edit name (same as onClick)
+			Toast.makeText(this, "Add Item Clicked", Toast.LENGTH_SHORT).show();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	public class MissingItemsAdapter extends ViewAdapterBase<String>{
