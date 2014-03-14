@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -25,6 +26,8 @@ public class SettingsActivity extends Activity implements OnClickListener {
 	private ListView mForgottenListView;
 	private MissingItemsAdapter mForgottenListAdapter;
 	private ArrayList<String> mForgottenList;
+	public static final String PREFS_NAME = "Settings_TagName";
+	public static final String PREFS_NOTIFICATIONS = "Settings_TagNotifications";
 
 	static private final int[] PERSONAL_ITEMS_LAYOUT_IDS = {
 		//		R.id.missing_items, R.id.x_button
@@ -51,6 +54,7 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		mForgottenList.add("Travel Mug");
 		mForgottenList.add("Bus Pass");
 		mForgottenList.add("Kindle");
+		
 	}
 
 	@Override
@@ -148,4 +152,5 @@ public class SettingsActivity extends Activity implements OnClickListener {
     public void showToast(String message){
     	Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+    
 }

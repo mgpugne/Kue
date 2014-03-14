@@ -6,5 +6,6 @@
     <string name="my_belongings">My Items</string>
     <string name="first_item">Umbrella</string>
     <string name="action_add_item">Add Item</string>
+    <string name="action_connect">Connect</string>
 
 </resources>
