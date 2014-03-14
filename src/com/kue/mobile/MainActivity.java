@@ -10,9 +10,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.hardware.usb.UsbAccessory;
-import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.Menu;
@@ -45,7 +42,7 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 		mForgottenListView = (ListView) findViewById(R.id.forgotten_items_list); //cast
 		mForgottenList = new ArrayList<Pair<String,Boolean>>();
 		mForgottenListAdapter = new MissingItemsAdapter(this, mForgottenList); //constructor
-		mForgottenListView.setAdapter(mForgottenListAdapter); //setting the adapter
+		mForgottenListView.setAdapter(mForgottenListAdapter); //setting the adapter		
 
 		//hardcoded names of objects
 		mForgottenList.add(new Pair<String,Boolean>("Car Keys",true));
@@ -113,6 +110,7 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 	
 	@Override
 	public void onAdapterConnected(USB2SerialAdapter adapter) {
+		adapter.setDataListener(this);
 		Toast.makeText(this, "Adapter "+adapter.getDeviceId()+" Connected!", Toast.LENGTH_SHORT).show();
 	}
 	
@@ -138,7 +136,7 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 	
 	@Override
 	public void onDataReceived(int id, byte[] data) {
-		// TO DO
+		// TO DO: reset time count from here
 	}
 	
 	@Override
