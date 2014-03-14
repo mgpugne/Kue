@@ -64,10 +64,14 @@ public class SettingsActivity extends Activity implements OnClickListener {
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_add_item:
+			Toast.makeText(this, "Add Item Clicked", Toast.LENGTH_SHORT).show();
 			//TO DO: Need to find new tag, user uses refresh button
 			//If found new tag, show first tag id that is found (or show a list)
+			int ID = mForgottenList.size(); //SEMI-HARDCODED - ID must match ID from tag
+			String emptyName = "";
+			mForgottenList.add(emptyName);
 			//Then edit name (same as onClick)
-			Toast.makeText(this, "Add Item Clicked", Toast.LENGTH_SHORT).show();
+			editPopUp(ID, emptyName);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -100,22 +104,26 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		final int position = (Integer) editButton.getTag();
 
 		ViewGroup parent = (ViewGroup) v.getParent();
-		final TextView itemName = (TextView) parent.findViewById(R.id.personal_belongings_list);
+		final String itemName = (String) ((TextView) parent.findViewById(R.id.personal_belongings_list)).getText();
+		editPopUp(position, itemName);
+	}
 
+	
+	public void editPopUp(final int position, String name){
 		//Creates alert
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
 		alert.setTitle("Please enter object name");
 
 		// Set an EditText view to get user input
 		final EditText input = new EditText(this);
-		input.setText(itemName.getText());
+		input.setText(name);
 		alert.setView(input);
 
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int whichButton) {
 				String value = input.getText().toString();
+				//mForgottenList.set(position, value);
 				mForgottenList.set(position, value);
 				mForgottenListAdapter.notifyDataSetChanged();
 				Log.i("Eura", value); // way to see what happens when button is pressed
@@ -123,10 +131,9 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		});
 
 		alert.setNegativeButton("Cancel", null);
-
 		alert.show();
 	}
-
+	
     public class toggleCheckedListener implements OnCheckedChangeListener {
 
     	@Override
@@ -136,7 +143,6 @@ public class SettingsActivity extends Activity implements OnClickListener {
     			showToast("Checked");
     		}
     	}
-
     }
     
     public void showToast(String message){
