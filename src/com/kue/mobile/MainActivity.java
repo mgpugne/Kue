@@ -35,6 +35,9 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 		R.id.missing_items, R.id.x_button
 	};
 	
+	static private final int EZ430_VENDOR_ID = 1105;
+	static private final int EZ430_PRODUCT_ID = 62514;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState); //instantiating
@@ -58,6 +61,7 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 		
 		//USB stuff
 		SlickUSB2Serial.initialize(this);
+		SlickUSB2Serial.autoConnect(this);
 
 	}
 
@@ -72,7 +76,7 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_connect:
-			SlickUSB2Serial.autoConnect(this);
+			SlickUSB2Serial.connectFTDI(this, EZ430_VENDOR_ID, EZ430_PRODUCT_ID);
             return true;
 		case R.id.action_settings:
 			// opens settings activity
