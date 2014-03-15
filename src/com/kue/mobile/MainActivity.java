@@ -27,7 +27,7 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 
 	private ListView mForgottenListView;
 	private MissingItemsAdapter mForgottenListAdapter;
-	private ArrayList<Pair<String,Boolean>> mForgottenList;
+	private ArrayList<Item> mForgottenList;
 
 	static private final int[] MISSING_ITEMS_LAYOUT_IDS = {
 		R.id.missing_items, R.id.x_button, R.id.signal_strength
@@ -47,14 +47,14 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 		super.onCreate(savedInstanceState); //instantiating
 		setContentView(R.layout.activity_main); //slapping XML onto screen
 		mForgottenListView = (ListView) findViewById(R.id.forgotten_items_list); //cast
-		mForgottenList = new ArrayList<Pair<String,Boolean>>();
+		mForgottenList = new ArrayList<Item>();
 		mForgottenListAdapter = new MissingItemsAdapter(this, mForgottenList); //constructor
 		mForgottenListView.setAdapter(mForgottenListAdapter); //setting the adapter		
 
 		//hardcoded names of objects
-		mForgottenList.add(new Pair<String,Boolean>("Car Keys",true));
-		mForgottenList.add(new Pair<String,Boolean>("Water Bottle",true));
-		mForgottenList.add(new Pair<String,Boolean>("Umbrella",true));
+		mForgottenList.add(new Item(1, "Car Keys", true));
+		mForgottenList.add(new Item(2, "Water Bottle", true));
+		mForgottenList.add(new Item(3, "Umbrella", true));
 		/*mForgottenList.add(new Pair<String,Boolean>("Tablet",true));
 		mForgottenList.add(new Pair<String,Boolean>("Charger",true));
 		mForgottenList.add(new Pair<String,Boolean>("Lunch Box",true));
@@ -95,19 +95,19 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 		}
 	}
 
-	public class MissingItemsAdapter extends ViewAdapterBase<Pair<String,Boolean>>{
+	public class MissingItemsAdapter extends ViewAdapterBase<Item>{
 
-		public MissingItemsAdapter(Activity a, ArrayList<Pair<String,Boolean>> list) {
+		public MissingItemsAdapter(Activity a, ArrayList<Item> list) {
 			super(a, R.layout.missing_item_list_item, MISSING_ITEMS_LAYOUT_IDS, list);
 		}
 
 		@Override
-		protected void setWidgetValues(int position, Pair<String,Boolean> item, View[] elements, View layout) {
+		protected void setWidgetValues(int position, Item item, View[] elements, View layout) {
 			TextView textview = (TextView) elements[0];
-			textview.setText(item.first);
+			textview.setText(item.getName());
 
 			ImageView xButton = (ImageView) elements[1];
-			if (item.second){
+			if (item.inRange()){
 				xButton.setImageDrawable(getResources().getDrawable(R.drawable.badge_square_check));
 			}
 			else{
