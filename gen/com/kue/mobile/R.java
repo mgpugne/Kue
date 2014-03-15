@@ -27,16 +27,17 @@ public final class R {
         public static final int plus=0x7f020007;
     }
     public static final class id {
-        public static final int action_add_item=0x7f090009;
-        public static final int action_connect=0x7f090008;
-        public static final int action_settings=0x7f090007;
-        public static final int edit_button=0x7f090005;
+        public static final int action_add_item=0x7f09000a;
+        public static final int action_connect=0x7f090009;
+        public static final int action_settings=0x7f090008;
+        public static final int edit_button=0x7f090006;
         public static final int forgotten_items_list=0x7f090001;
         public static final int missing_items=0x7f090002;
-        public static final int personal_belongings_list=0x7f090004;
-        public static final int switch_toggle=0x7f090006;
+        public static final int personal_belongings_list=0x7f090005;
+        public static final int signal_strength=0x7f090003;
+        public static final int switch_toggle=0x7f090007;
         public static final int textView1=0x7f090000;
-        public static final int x_button=0x7f090003;
+        public static final int x_button=0x7f090004;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

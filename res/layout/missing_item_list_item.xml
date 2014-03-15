@@ -12,6 +12,16 @@
         android:textSize="16sp">
     </TextView>
     
+    <ProgressBar android:id="@+id/signal_strength"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:max="50"
+        android:progress="25"
+        style="@android:style/Widget.ProgressBar.Small"
+        android:indeterminate="false"
+        />
+    
     <ImageView android:id="@+id/x_button"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
