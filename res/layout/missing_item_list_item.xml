@@ -18,9 +18,10 @@
         android:layout_gravity="center"
         android:max="50"
         android:progress="25"
-        style="@android:style/Widget.ProgressBar.Small"
-        android:indeterminate="false"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:indeterminate="false"        
         />
+    <!-- style="@android:style/Widget.ProgressBar.Horizontal" -->
     
     <ImageView android:id="@+id/x_button"
         android:layout_height="wrap_content"

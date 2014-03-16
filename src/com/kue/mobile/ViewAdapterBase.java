@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +47,8 @@ public abstract class ViewAdapterBase<TItem> extends ArrayAdapter<TItem>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View viewObj = convertView;
+        Log.i("Michelle", "Get View");
+    	View viewObj = convertView;
         View[] elements = null;
         if (viewObj == null) {
             LayoutInflater inflator = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
