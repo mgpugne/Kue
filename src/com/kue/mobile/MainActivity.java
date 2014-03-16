@@ -12,7 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +34,8 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 	
 	static private final long START_TIME = 5*1000;
 	static private final long INTERVAL_TIME = 1*1000;
+	
+	private Handler mHandler;
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,12 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 		mForgottenList.add(new Item(1, "Car Keys", true, 15));
 		mForgottenList.add(new Item(2, "Water Bottle", true, 28));
 		mForgottenList.add(new Item(3, "Umbrella", true, 20));
+		mForgottenList.add(new Item(4, "Tablet", true, 20));
+		mForgottenList.add(new Item(5, "Charger", true, 20));
+		mForgottenList.add(new Item(6, "Lunch Box", true, 20));
+		mForgottenList.add(new Item(7, "Travel Mug", true, 20));
+		mForgottenList.add(new Item(8, "Bus Pass", true, 20));
+		
 		/*mForgottenList.add(new Pair<String,Boolean>("Tablet",true));
 		mForgottenList.add(new Pair<String,Boolean>("Charger",true));
 		mForgottenList.add(new Pair<String,Boolean>("Lunch Box",true));
@@ -59,7 +67,12 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 		//USB stuff
 		SlickUSB2Serial.initialize(this);
 		SlickUSB2Serial.connectProlific(this);
+		
+		mHandler = new Handler();
+		startRepeatingTask();
+		
 
+		
 	}
 
 	@Override
@@ -93,7 +106,6 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 
 		@Override
 		protected void setWidgetValues(int position, Item item, View[] elements, View layout) {
-			Log.i("Michelle", "Set Widget Values");
 			TextView textview = (TextView) elements[0];
 			textview.setText(item.getName());
 
@@ -108,9 +120,6 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 			ProgressBar signalStrength = (ProgressBar) elements[2];
 			signalStrength.setIndeterminate(false);
 			signalStrength.setProgress(item.getSignalStrength());
-			Log.i("Michelle", "Adapter Updated");
-			
-			
 		}
 
 	}
@@ -155,49 +164,25 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 	public void onDataReceived(int id, byte[] data) {
 
 		if (data.length>1){
-			mForgottenListAdapter.notifyDataSetChanged();// Not sure if working
-			Log.i("Michelle", SlickUSB2Serial.convertByte2String(data));
 			String stringData = SlickUSB2Serial.convertByte2String(data)
 					.replace("00", "")
 					.replace("0a", "")
 					.replace("0d", "")
 					.replace(" ", "");
 			stringData = convertHexToString(stringData);
-			Log.i("Michelle", stringData);
+			String[] params = {stringData.substring(7, 8), //Tag number
+			                   stringData.substring(11, 13), //Signal strength
+			                   stringData.substring(15, 18)}; //Battery life
+			final int tagNo = Integer.parseInt(params[0]);
+			final int signalStrength = Integer.parseInt(params[1]);
+			final float batteryLife = Float.parseFloat(params[2]);
 			
-			String tagNoString = stringData.substring(7, 8);
-			String signalStrengthString = stringData.substring(11, 13);
-			String batteryLifeString = stringData.substring(15, 18);
-			
-			final int tagNo = Integer.parseInt(tagNoString);
-			final int signalStrength = Integer.parseInt(signalStrengthString);
-			final float batteryLife = Float.parseFloat(batteryLifeString);
-			
-			//runOnUiThread(new Runnable(){
-			new Thread(new Runnable() {
-				public void run(){
-					Item currentItem = mForgottenList.get(tagNo-1);
-					currentItem.setSignalStrength(signalStrength);
-					currentItem.setBatteryLife(batteryLife);
-					mForgottenList.set(tagNo-1, currentItem);
-					//mForgottenListAdapter.notifyDataSetChanged();// Not sure if working
-				}
-			});			
-			
-			
-			
-			Log.i("Michelle", "Name: "+mForgottenList.get(0).getName()+
-					" Signal:"+((Integer)mForgottenList.get(0).getSignalStrength()).toString());
-			
-			// TO DO: reset time count from here
-			Log.i("Michelle", "ID: "+tagNoString+", Strength: "+signalStrengthString+", Batt Life:"+batteryLifeString);
-			
-			//mForgottenListAdapter.clear();
-			//mForgottenListAdapter.addAll(mForgottenList);
-			//mForgottenListAdapter.notifyDataSetChanged();// Not sure if working
-			
+			Item currentItem = mForgottenList.get(tagNo-1);
+			currentItem.setSignalStrength(signalStrength);
+			currentItem.setBatteryLife(batteryLife);
+			mForgottenList.set(tagNo-1, currentItem);
+
 		}
-		
 		
 	}
 	
@@ -242,7 +227,32 @@ public class MainActivity extends Activity implements AdapterConnectionListener,
 		  System.out.println("Decimal : " + temp.toString());
 	 
 		  return sb.toString();
-	  }
+	}
 	
+	
+	Runnable mStatusChecker = new Runnable() {
+	    @Override 
+	    public void run() {
+	      updateStatus(); //this function can change value of mInterval.
+	      mHandler.postDelayed(mStatusChecker, 1000);
+	    }
+	  };
+	
+	private void updateStatus(){
+		runOnUiThread(new Runnable(){
+			public void run(){
+				mForgottenListAdapter.notifyDataSetChanged();
+				
+			}
+		});
+	}
+	void startRepeatingTask() {
+	    mStatusChecker.run(); 
+	  }
+
+	void stopRepeatingTask() {
+		mHandler.removeCallbacks(mStatusChecker);
+	}
+		
 	
 }
