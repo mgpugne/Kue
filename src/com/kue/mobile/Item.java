@@ -46,7 +46,7 @@ public class Item {
 		return signalStrength;
 	}
 	public void setSignalStrength(int mSignalStrength){
-		signalStrength = mSignalStrength;
+		signalStrength = mSignalStrength-12;
 	}
 	
 	public float getBatteryLife(){
